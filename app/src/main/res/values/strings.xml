@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">chessClock</string>
+    <string name="settings_button">settings_button</string>
+    <string name="pause_button">pause button</string>
+    <string name="refresh_button">refresh button</string>
+    <string name="done">done!</string>
+</resources>
