@@ -51,4 +51,7 @@ dependencies {
 
 // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+
+    //timepicker
+    implementation 'com.kovachcode:timePickerWithSeconds:1.0.1'
 }

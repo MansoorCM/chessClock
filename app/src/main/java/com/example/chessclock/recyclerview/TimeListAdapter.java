@@ -1,5 +1,7 @@
 package com.example.chessclock.recyclerview;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,15 @@ import java.util.List;
 
 public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.TimeViewHolder>{
     private List<TimeControl> mAlltimes;
+    public onClickItemListener onClickItemListener;
+    private View selectedView;
+
+    public TimeListAdapter(onClickItemListener onClickItemListener)
+    {
+        this.onClickItemListener =onClickItemListener;
+    }
+
+
     @NonNull
     @Override
     public TimeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,11 +54,12 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.TimeVi
         notifyDataSetChanged();
     }
 
-    class TimeViewHolder extends RecyclerView.ViewHolder {
+    class TimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView wordTextView;
         TimeViewHolder(@NonNull View itemView) {
             super(itemView);
             wordTextView=itemView.findViewById(R.id.wordlistitem);
+            itemView.setOnClickListener(this);
         }
 
         void bind(int position)
@@ -63,5 +75,30 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.TimeVi
             }
 
         }
+
+        @Override
+        public void onClick(View view) {
+            TimeControl timeControl=mAlltimes.get(getLayoutPosition());
+            int color= Color.parseColor("#A5D6A7");
+            if(selectedView!=null )
+            {
+                if(view!=selectedView)
+                {
+                    selectedView.setBackgroundColor(0x00000000);
+                    view.setBackgroundColor(color);
+                }
+
+            }else
+            {
+                view.setBackgroundColor(color);
+            }
+            selectedView=view;
+            onClickItemListener.onClickrowItem(timeControl);
+        }
     }
+    public interface onClickItemListener
+    {
+        void onClickrowItem(TimeControl name);
+    }
+
 }

@@ -29,12 +29,12 @@ abstract class TimeRoomDatabase extends RoomDatabase{
                 TimeControlDao dao=INSTANCE.timeDao();
                 Log.d("TAG","data deleted");
                 dao.deleteAll();
-                TimeControl control = new TimeControl("5\'blitz","00:05:00","fischer", "00:00");
+                TimeControl control = new TimeControl("5\'blitz","00:05:00","Fischer", "00:00:00");
                 dao.insertTime(control);
                 Log.d("TAG","data inserted");
-                control = new TimeControl("world blitz","00:03:00","fischer", "00:02");
+                control = new TimeControl("world blitz","00:03:00","Fischer", "00:00:02");
                 dao.insertTime(control);
-                control = new TimeControl("world rapid","00:15:00","fischer", "00:10");
+                control = new TimeControl("world rapid","00:15:00","Fischer", "00:00:10");
                 dao.insertTime(control);
 
             });

@@ -14,12 +14,14 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
-    TextView playerOne, playerTwo;
+    static TextView playerOne;
+    static TextView playerTwo;
     ImageView settings, pause, refresh;
-    long one = 30000, two = 30000;
+    public static long one = 30000, two = 30000;
     long timeOne = one, timeTwo = two;
-    CountDownTimer timerOne, timerTwo;
-    boolean finished = false, oneisplaying = false, twoisplaying = false;
+    public static CountDownTimer timerOne, timerTwo;
+    public static boolean finished = false, oneisplaying = false, twoisplaying = false;
+    public static String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +34,24 @@ public class MainActivity extends AppCompatActivity {
         pause = findViewById(R.id.pause);
         refresh = findViewById(R.id.refresh);
 
+        if(TimeControlActivity.newTime)
+        {
+            oneisplaying = false;
+            twoisplaying = false;
+            if (timerOne != null) {
+                timerOne.cancel();
+            }
+            if (timerTwo != null) {
+                timerTwo.cancel();
+            }
+            TimeControlActivity.newTime=false;
+        }
         initialize();
+
 
     }
 
-    private void initialize() {
+    public static void initialize() {
         playerOne.setText(getTextFromTime(one));
         playerTwo.setText(getTextFromTime(two));
     }
@@ -58,6 +73,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public static long getTimeFromText(String text)
+    {
+        int hour= (text.charAt(0)-'0')*10+(text.charAt(1)-'0');
+        int minute= (text.charAt(3)-'0')*10+(text.charAt(4)-'0');
+        int second= (text.charAt(6)-'0')*10+(text.charAt(7)-'0');
+
+            Log.d("TAG", String.valueOf(hour));
+        Log.d("TAG",String.valueOf(minute));
+        Log.d("TAG", String.valueOf(second));
+
+
+        Log.d("TAG",hour+":"+minute+":"+second);
+        long time=hour*60*60+minute*60+
+                second;
+        return time*1000;
+    }
+
     private void startSecondTimer() {
         timerTwo = new CountDownTimer(timeTwo, 1000) {
 
@@ -75,8 +107,10 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private String getTextFromTime(long time) {
+    private static String getTextFromTime(long time) {
         int val = (int) (time / 1000);
+        String hour=String.valueOf(val/(60*60));
+        val%=60*60;
         String min = String.valueOf(val / 60);
         String second = String.valueOf(val % 60);
 //        if(min.length()==1)
@@ -87,10 +121,25 @@ public class MainActivity extends AppCompatActivity {
             second = "0" + second;
         }
         //Log.d(TAG,min + ":" + second);
-        return min + ":" + second;
+        if (hour.equals("0"))
+        {
+            return min + ":" + second;
+        }else
+        {
+            return hour+":"+min + ":" + second;
+        }
+
+
+
+
     }
 
+    //player one clicked his clock.this stops his and starts his opponents clock.
     public void clickone(View view) {
+        if(mode!=null)
+        {
+            Log.d("TAG",mode);
+        }
         if (!oneisplaying && !twoisplaying) {
             pause.setVisibility(View.VISIBLE);
         }
@@ -103,12 +152,13 @@ public class MainActivity extends AppCompatActivity {
             }
             timeTwo = two;
             startSecondTimer();
-            playerTwo.setBackgroundColor(getResources().getColor(R.color.orange));
+            playerTwo.setBackgroundColor(getResources().getColor(R.color.lightGreenSelect));
             timerTwo.start();
         }
 
     }
 
+    //player two clicked his clock.
     public void clickTwo(View view) {
         if (!oneisplaying && !twoisplaying) {
             pause.setVisibility(View.VISIBLE);
@@ -122,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
             }
             timeOne = one;
             startFirstTimer();
-            playerOne.setBackgroundColor(getResources().getColor(R.color.orange));
+            playerOne.setBackgroundColor(getResources().getColor(R.color.lightGreenSelect));
             timerOne.start();
         }
 
@@ -142,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         playerTwo.setBackgroundColor(getResources().getColor(R.color.colorgrey));
     }
 
+    //time reset to the starting value.
     public void refreshclicked(View view) {
         pauseclicked(pause);
         new AlertDialog.Builder(view.getContext())

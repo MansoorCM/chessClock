@@ -25,4 +25,13 @@ public class TimeViewModel extends AndroidViewModel {
     {
         mTimeRepository.insert(timeControl);
     }
+    public void update(TimeControl timeControl)
+    {
+        mTimeRepository.update(timeControl);
+    }
+    public void delete(TimeControl timeControl)
+    {
+        mTimeRepository.delete(timeControl);
+    }
+    public TimeControl getByName(String name){ return mTimeRepository.getByName(name);}
 }
