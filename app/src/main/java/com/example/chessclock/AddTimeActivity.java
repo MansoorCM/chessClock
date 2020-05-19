@@ -168,6 +168,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 if (checked)
                 {
                     mode= String.valueOf(((RadioButton) view).getText());
+                    Log.d("TAG",mode);
                     Toast.makeText(this, mode, Toast.LENGTH_SHORT).show();
                 }
 
@@ -178,6 +179,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 if (checked)
                 {
                     mode= String.valueOf(((RadioButton) view).getText());
+                    Log.d("TAG",mode);
                     Toast.makeText(this, mode, Toast.LENGTH_SHORT).show();
                 }
 
@@ -187,6 +189,7 @@ public class AddTimeActivity extends AppCompatActivity {
                 if (checked)
                 {
                     mode= String.valueOf(((RadioButton) view).getText());
+                    Log.d("TAG",mode);
                     Toast.makeText(this, mode, Toast.LENGTH_SHORT).show();
                 }
 

@@ -14,15 +14,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.chessclock.data.TimeControl;
 import com.example.chessclock.data.TimeViewModel;
 import com.example.chessclock.recyclerview.TimeListAdapter;
-
-import java.sql.Time;
 import java.util.List;
 
+/*shows the list of time controls stored in the database in a recylerview and allows the
+user to select a time control to use in the clock(MainActivity) or add a new timecontrol
+by navigating to the AddTimeActivity class*/
 public class TimeControlActivity extends AppCompatActivity implements TimeListAdapter.onClickItemListener{
 
     private static final int NEW_TIME_CONTROL_REQUEST_CODE = 1;
@@ -31,7 +33,7 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
     RecyclerView recyclerView;
     TimeListAdapter adapter;
     TimeViewModel viewModel;
-    public static boolean newTime=false;
+    UIViewModel uiViewModel;
     static TimeControl selectedTimeControl;
     static int editId;
 
@@ -41,6 +43,7 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
         setContentView(R.layout.activity_time_control);
 
         viewModel= new ViewModelProvider(this).get(TimeViewModel.class);
+        uiViewModel=new ViewModelProvider(this).get(UIViewModel.class);
 
         recyclerView=findViewById(R.id.recyclerview);
         adapter=new TimeListAdapter(TimeControlActivity.this);
@@ -116,8 +119,7 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
 
         }else if(item.getItemId()==R.id.action_delete)
         {
-//            Intent intent=new Intent(this,AddTimeActivity.class);
-//            startActivityForResult(intent, NEW_TIME_CONTROL_REQUEST_CODE);
+            //deletes a time control fron the database
             if(selectedTimeControl!=null)
             {
                 viewModel.delete(selectedTimeControl);
@@ -129,26 +131,20 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
 
     @Override
     public void onClickrowItem(TimeControl timeControl) {
-        //Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
-        //TimeControl timeControl=viewModel.getByName(name);
-        Log.d("TAG",String.valueOf(timeControl.getId()+" "+timeControl.getName()
-                +" "+timeControl.getMode())+" "+timeControl.getTime());
+//        Log.d("TAG",String.valueOf(timeControl.getId()+" "+timeControl.getName()
+//                +" "+timeControl.getMode())+" "+timeControl.getTime());
         selectedTimeControl=timeControl;
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
-//        long time=MainActivity.getTimeFromText(timeControl.getTime());
-//        MainActivity.one=time;
-//        MainActivity.two=time;
-//        MainActivity.mode=timeControl.getMode();
-//
-//        MainActivity.oneisplaying = false;
-//        MainActivity.twoisplaying = false;
-//            if (MainActivity.timerOne != null) {
-//                MainActivity.timerOne.cancel();
-//            }
-//            if (MainActivity.timerTwo != null) {
-//                MainActivity.timerTwo.cancel();
-//            }
-//            MainActivity.initialize();
+       // Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
         }
 
+    public void onSelect(View view) {
+        if(selectedTimeControl!=null)
+        {
+            uiViewModel.setTimeControl(selectedTimeControl);
+            finish();
+        }else
+        {
+            Toast.makeText(this, "Select a time control", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
