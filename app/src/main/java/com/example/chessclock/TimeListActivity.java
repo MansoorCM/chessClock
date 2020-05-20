@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -25,7 +24,7 @@ import java.util.List;
 /*shows the list of time controls stored in the database in a recylerview and allows the
 user to select a time control to use in the clock(MainActivity) or add a new timecontrol
 by navigating to the AddTimeActivity class*/
-public class TimeControlActivity extends AppCompatActivity implements TimeListAdapter.onClickItemListener{
+public class TimeListActivity extends AppCompatActivity implements TimeListAdapter.onClickItemListener{
 
     private static final int NEW_TIME_CONTROL_REQUEST_CODE = 1;
     public static final String EDIT_KEY = "edit_item";
@@ -40,13 +39,13 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_control);
+        setContentView(R.layout.activity_time_list);
 
         viewModel= new ViewModelProvider(this).get(TimeViewModel.class);
         uiViewModel=new ViewModelProvider(this).get(UIViewModel.class);
 
         recyclerView=findViewById(R.id.recyclerview);
-        adapter=new TimeListAdapter(TimeControlActivity.this);
+        adapter=new TimeListAdapter(TimeListActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -140,7 +139,12 @@ public class TimeControlActivity extends AppCompatActivity implements TimeListAd
     public void onSelect(View view) {
         if(selectedTimeControl!=null)
         {
-            uiViewModel.setTimeControl(selectedTimeControl);
+            Intent replyIntent=new Intent();
+            replyIntent.putExtra("timecontrol",new String[]{selectedTimeControl.getName(),
+            selectedTimeControl.getTime(),selectedTimeControl.getMode(),
+                    selectedTimeControl.getIncrement()});
+            setResult(RESULT_OK,replyIntent);
+            //uiViewModel.setTimeControl(selectedTimeControl);
             finish();
         }else
         {

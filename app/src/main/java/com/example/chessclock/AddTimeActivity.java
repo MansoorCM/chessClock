@@ -2,7 +2,6 @@ package com.example.chessclock;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +15,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.chessclock.data.TimeControl;
-import com.example.chessclock.data.TimeViewModel;
 import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 
 
@@ -47,9 +44,9 @@ public class AddTimeActivity extends AppCompatActivity {
         radioGroup=findViewById(R.id.radiogroup);
 
         Intent intent=getIntent();
-        if(intent.hasExtra(TimeControlActivity.EDIT_KEY))
+        if(intent.hasExtra(TimeListActivity.EDIT_KEY))
         {
-            String[] arrayExtra=intent.getStringArrayExtra(TimeControlActivity.EDIT_KEY);
+            String[] arrayExtra=intent.getStringArrayExtra(TimeListActivity.EDIT_KEY);
             assert arrayExtra != null;
             id= Integer.parseInt(arrayExtra[0]);
             enterName.setText(arrayExtra[1]);
@@ -123,14 +120,27 @@ public class AddTimeActivity extends AppCompatActivity {
                         , Toast.LENGTH_SHORT).show();
             }else
             {
-                String time=correctTimeFormat(addTime.getText().toString());
-                String increment=correctTimeFormat(addIncrement.getText().toString());
-                //TimeControl timeControl=new TimeControl(name,time,mode,increment);
-                Intent replyIntent=new Intent();
-                replyIntent.putExtra(EXTRA_REPLY,new String[]{name,time,mode,increment});
-                setResult(RESULT_OK,replyIntent);
-                //viewModel.insert(timeControl);
-                finish();
+                if(addTime.getText().toString().isEmpty())
+                {
+                    Toast.makeText(this, "Set the game time"
+                            , Toast.LENGTH_SHORT).show();
+                }else if(addIncrement.getText().toString().isEmpty())
+                {
+                    Toast.makeText(this, "Set the increment"
+                            , Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Log.d("increment",addIncrement.getText().toString());
+                    String time=correctTimeFormat(addTime.getText().toString());
+                    String increment=correctTimeFormat(addIncrement.getText().toString());
+                    //TimeControl timeControl=new TimeControl(name,time,mode,increment);
+                    Intent replyIntent=new Intent();
+                    replyIntent.putExtra(EXTRA_REPLY,new String[]{name,time,mode,increment});
+                    setResult(RESULT_OK,replyIntent);
+                    //viewModel.insert(timeControl);
+                    finish();
+                }
+
             }
 
 

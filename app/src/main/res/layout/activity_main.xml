@@ -11,7 +11,7 @@
         android:onClick="clickone"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorgrey"
+        android:background="@color/darkgrey"
         android:gravity="center_horizontal|center_vertical"
         android:layout_margin="@dimen/smallmargin"
         android:textSize="42sp"

@@ -2,15 +2,14 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-<!--        <item name="colorAccent">@color/colorAccent</item>-->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/darkgrey</item>
+        <item name="colorAccent">@color/youtube</item>
     </style>
     <style name="activity_theme" parent="Theme.AppCompat.DayNight">
-<!--        <item name="colorPrimary">@color/primaryGreen</item>-->
-<!--        <item name="colorPrimaryDark">@color/darkGreen</item>-->
-<!--        <item name="colorAccent">@color/colorGreen</item>-->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/darkgrey</item>
+        <item name="colorAccent">@color/youtube</item>
     </style>
 
 

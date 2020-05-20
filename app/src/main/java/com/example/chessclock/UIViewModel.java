@@ -15,7 +15,8 @@ import com.example.chessclock.data.TimeControl;
 import java.util.Objects;
 
 public class UIViewModel extends AndroidViewModel {
-    public boolean firsttime=true;
+    boolean firsttime=true;
+    boolean firstmove=true;
     MutableLiveData<TimeControl> timeControl=new MutableLiveData<TimeControl>();
     //MutableLiveData<TimeControl> sample=new MutableLiveData<TimeControl>();
     //TimeControl control=new TimeControl("bullet_sample","00:01:00",, "00:00:01");
@@ -61,6 +62,8 @@ public class UIViewModel extends AndroidViewModel {
         twoisplaying=false;
         finished=false;
         paused=false;
+        firstmove=true;
+        firsttime=true;
 //        if(timeControl==null)
 //        {
 //            timeOne=(long) 60000;

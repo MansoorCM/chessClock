@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorgrey">#DADADA</color>
-    <color name="lightBlue">#03DAC5</color>
+<!--    <color name="lightBlue">#03DAC5</color>-->
 
     <color name="darkgrey">#707070</color>
     <color name="bakground">#DADADA</color>
 
-    <color name="lightGreen">#A5D6A7</color>
-    <color name="lightGreenSelect">#81C784</color>
-    <color name="primaryGreen">#43A047</color>
-    <color name="colorGreen">#338637</color>
+<!--    <color name="lightGreen">#A5D6A7</color>-->
+    <color name="lightGreenSelect">#a7d84c</color>
+    <color name="highlighted_text_dark">#9983CC39</color>
+<!--    <color name="primaryGreen">#43A047</color>-->
+<!--    <color name="colorGreen">#338637</color>-->
     <color name="darkGreen">#1B5E20</color>
+<!--    <color name="green">#ff8bc34a</color>-->
 
-    <color name="red">#830a0a</color>
-    <color name="black">#000000</color>
-    <color name="netflix">#E50914</color>
+<!--    <color name="red">#830a0a</color>-->
+<!--    <color name="black">#000000</color>-->
+<!--    <color name="netflix">#E50914</color>-->
+    <color name="youtube">#FF0000</color>
+<!--    <color name="darkred">#8B0000</color>-->
+<!--    <color name="violet">#9209e4</color>-->
+    <color name="white">#FFFFFF</color>
+
 </resources>

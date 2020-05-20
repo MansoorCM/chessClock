@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddTimeActivity"
-            android:parentActivityName=".TimeControlActivity"
+            android:parentActivityName=".TimeListActivity"
             android:theme="@style/activity_theme"></activity>
         <activity
-            android:name=".TimeControlActivity"
+            android:name=".TimeListActivity"
             android:parentActivityName=".MainActivity"
             android:theme="@style/activity_theme" />
         <activity

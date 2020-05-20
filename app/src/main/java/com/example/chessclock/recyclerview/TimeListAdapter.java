@@ -79,7 +79,7 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.TimeVi
         @Override
         public void onClick(View view) {
             TimeControl timeControl=mAlltimes.get(getLayoutPosition());
-            int color= Color.parseColor("#A5D6A7");
+            int color= Color.parseColor("#9983CC39");
             if(selectedView!=null )
             {
                 if(view!=selectedView)
