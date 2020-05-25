@@ -12,15 +12,10 @@ import com.example.chessclock.data.TimeControl;
 import java.util.Objects;
 
 public class UIViewModel extends AndroidViewModel {
-    boolean firsttime=false;
-    boolean firstmove=true;
-    TimeControl timeControl=new TimeControl("bullet_sample","00:01:00",
-                                                   "Fischer", "00:00:01");;
-
-
-//        setValue(new TimeControl("bullet_sample","00:01:00",
-//            "Fischer", "00:00:01"));
-
+    boolean firsttime = false;
+    boolean firstmove = true;
+    TimeControl timeControl = new TimeControl("bullet_sample", "00:01:00",
+            "Fischer", "00:00:01");
 
     boolean oneisplaying;
     boolean twoisplaying;
@@ -42,32 +37,24 @@ public class UIViewModel extends AndroidViewModel {
     }
 
 
-    void initialize()
-    {
+    void initialize() {
 
-        notNull=1;
-        Log.d("TAG", "init viewmodel");
-//        if(mSavedState.contains("timecontrol"))
-//        {
-//            timeControl=mSavedState.get("timecontrol");
-//        }else
-//        {
-//            timeControl=new TimeControl("bullet_sample","00:01:00",
-//                    "Fischer", "00:00:01");
-//        }
-        oneisplaying=false;
-        twoisplaying=false;
-        finished=false;
-        paused=false;
-        firstmove=true;
+        notNull = 1;
+//        Log.d("TAG", "init viewmodel");
 
-            timeOne=getTimeFromText(Objects.requireNonNull(timeControl).getTime());
-            timeTwo=getTimeFromText(timeControl.getTime());
-            increment=getTimeFromText(timeControl.getIncrement());
-            mode=timeControl.getMode();
+        oneisplaying = false;
+        twoisplaying = false;
+        finished = false;
+        paused = false;
+        firstmove = true;
 
-        timeOneStart=timeOne;
-        timeTwoStart=timeTwo;
+        timeOne = getTimeFromText(Objects.requireNonNull(timeControl).getTime());
+        timeTwo = getTimeFromText(timeControl.getTime());
+        increment = getTimeFromText(timeControl.getIncrement());
+        mode = timeControl.getMode();
+
+        timeOneStart = timeOne;
+        timeTwoStart = timeTwo;
 
     }
 
@@ -80,91 +67,12 @@ public class UIViewModel extends AndroidViewModel {
                 second;
         return time * 1000;
     }
-    public String getMode()
-    {
-      return mode;
-    }
 
-    public boolean getFinished() {
-        return finished;
-    }
-
-    public void setFinished(boolean finished) {
-        this.finished= finished;
-    }
-
-    public boolean getPaused() {
-        return paused;
-    }
-
-    public void setPaused(boolean paused) {
-        this.finished= paused;
-    }
-
-    public boolean getOneisplaying() {
-        return oneisplaying;
-    }
-
-    public void setOneisplaying(boolean oneisplaying) {
-        this.oneisplaying= oneisplaying;
-    }
-
-    public boolean getTwoisplaying() {
-        return twoisplaying;
-    }
-
-    public void setTwoisplaying(boolean twoisplaying) {
-        this.twoisplaying= twoisplaying;
-    }
-
-    public long getIncrement() {
-        return increment;
-    }
-
-    public long getTimeOne() {
-        return timeOne;
-    }
-
-    public void setTimeOne(long timeOne) {
-        this.timeOne= timeOne;
-        timeOneStart=timeOne;
-    }
-
-    public long getTimeTwo() {
-        return timeTwo;
-    }
-
-    public void setTimeTwo(long timeTwo) {
-        this.timeTwo= timeTwo;
-        timeTwoStart=timeTwo;
-    }
-
-    public long getTimeOneStart() {
-        return timeOneStart;
-    }
-
-    public void setTimeOneStart(long timeOne) {
-        this.timeOneStart= timeOne;
-    }
-
-    public long getTimeTwoStart() {
-        return timeTwoStart;
-    }
-
-    public void setTimeTwoStart(long timeTwo) {
-        this.timeTwoStart= timeTwo;
-    }
     public void setTimeControl(TimeControl timeControl) {
-        Log.i("init viewmodel","settimecontrol");
-        this.timeControl=timeControl;
+        Log.i("init viewmodel", "settimecontrol");
+        this.timeControl = timeControl;
         //mSavedState.set("timecontrol",timeControl);
         initialize();
     }
 
-    public TimeControl getTimeControl() {
-
-
-            return timeControl;
-
-    }
 }

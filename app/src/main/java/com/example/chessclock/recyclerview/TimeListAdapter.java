@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.TimeViewHolder>{
     private List<TimeControl> mAlltimes;
-    public onClickItemListener onClickItemListener;
+    private onClickItemListener onClickItemListener;
     private View selectedView;
 
     public TimeListAdapter(onClickItemListener onClickItemListener)

@@ -24,17 +24,12 @@ public class MainActivity extends AppCompatActivity {
     TextView playerTwo;
     ImageView settings, pause, refresh;
     //private SharedPreferences mSharedPreferences;
-    private static final String NAMEKEY="nameKey";
-    private static final String TIMEKEY="timekey";
-    private static final String INCKEY="incKey";
-    private static final String MODEKEY="modeKey";
+    private static final String NAMEKEY = "nameKey";
+    private static final String TIMEKEY = "timekey";
+    private static final String INCKEY = "incKey";
+    private static final String MODEKEY = "modeKey";
     TimeControl storedtimeControl;
-    //    public static long one, two;
-//    long timeOne, timeTwo;
-//    long increment;
-    public static CountDownTimer timerOne, timerTwo,delayTimer;
-    //    boolean finished, oneisplaying, twoisplaying;
-//    String mode;
+    public static CountDownTimer timerOne, timerTwo, delayTimer;
     UIViewModel viewModel;
 
     @Override
@@ -53,49 +48,16 @@ public class MainActivity extends AppCompatActivity {
 //                mSharedPreferences.getString(MODEKEY,"Fischer"),
 //                mSharedPreferences.getString(INCKEY,"00:00:01"));
         viewModel = new ViewModelProvider(this).get(UIViewModel.class);
-        if(viewModel.notNull!=1)
-        {
-            Log.i("init","reached viewmodel first time");
+        if (viewModel.notNull != 1) {
+            Log.i("init", "reached viewmodel first time");
             //viewModel.timeControl=timeControl;
-            if(storedtimeControl!=null)
-            {
-                viewModel.timeControl=storedtimeControl;
+            if (storedtimeControl != null) {
+                viewModel.timeControl = storedtimeControl;
             }
             initialize();
-        }else
-            {
-                Log.i("init","reached viewmodel already exists");
-            }
-
-//        viewModel.getTimeControl().observe(this, new Observer<TimeControl>() {
-//            @Override
-//            public void onChanged(TimeControl timeControl) {
-////                if(viewModel.notNull!=-1)
-////                {
-////                    viewModel.notNull=-1;
-////                }else
-////                {
-//                    Log.i("init","refresh clicked");
-//                    refreshclicked(refresh);
-//               // }
-//
-//
-//
-//            }
-//        });
-
-//        Intent replyIntent=getIntent();
-//        if(replyIntent.get)
-//        Log.d("TAG", String.valueOf(viewModel.oneisplaying));
-//        Log.d("TAG", String.valueOf(viewModel.twoisplaying));
-//        if(!viewModel.oneisplaying && !viewModel.twoisplaying)
-//        {
-//            Log.d("TAG","No one is playing");
-//            initialize();
-//        }
-
-
-
+        } else {
+            Log.i("init", "reached viewmodel already exists");
+        }
     }
 
     @Override
@@ -119,16 +81,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==TIME_SELECT_REQUEST)
-        {
-            if(resultCode==RESULT_OK)
-            {
+        if (requestCode == TIME_SELECT_REQUEST) {
+            if (resultCode == RESULT_OK) {
                 assert data != null;
-                String[] time=data.getStringArrayExtra("timecontrol");
+                String[] time = data.getStringArrayExtra("timecontrol");
                 assert time != null;
-                TimeControl timeControl=new TimeControl(time[0],time[1],time[2],time[3]);
-               // viewModel.firsttime=true;
-                storedtimeControl=timeControl;
+                TimeControl timeControl = new TimeControl(time[0], time[1], time[2], time[3]);
+                // viewModel.firsttime=true;
+                storedtimeControl = timeControl;
                 viewModel.setTimeControl(timeControl);
                 initialize();
 
@@ -139,17 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
     void initialize() {
         viewModel.initialize();
-        Log.d("TAG init", String.valueOf(viewModel.oneisplaying));
-        Log.d("TAG init", String.valueOf(viewModel.twoisplaying));
-//        finished=viewModel.finished;
-//        oneisplaying=viewModel.oneisplaying;
-//        twoisplaying=viewModel.twoisplaying;
-//        timeOne=viewModel.timeOneStart;
-//        timeTwo=viewModel.timeTwoStart;
-//        one=viewModel.timeOne;
-//        two=viewModel.timeTwo;
-//        increment=viewModel.increment;
-//        mode=viewModel.mode;
+//        Log.d("TAG init", String.valueOf(viewModel.oneisplaying));
+//        Log.d("TAG init", String.valueOf(viewModel.twoisplaying));
         playerOne.setText(getTextFromTime(viewModel.timeOneStart));
         playerTwo.setText(getTextFromTime(viewModel.timeTwoStart));
     }
@@ -158,10 +109,8 @@ public class MainActivity extends AppCompatActivity {
         timerOne = new CountDownTimer(viewModel.timeOneStart, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //one = millisUntilFinished;
                 viewModel.timeOne = millisUntilFinished;
                 playerOne.setText(getTextFromTime(viewModel.timeOne));
-                //Log.d(TAG, "one is: " + (one / 1000));
             }
 
             public void onFinish() {
@@ -175,31 +124,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static long getTimeFromText(String text) {
-        int hour = (text.charAt(0) - '0') * 10 + (text.charAt(1) - '0');
-        int minute = (text.charAt(3) - '0') * 10 + (text.charAt(4) - '0');
-        int second = (text.charAt(6) - '0') * 10 + (text.charAt(7) - '0');
-
-        Log.d("TAG", String.valueOf(hour));
-        Log.d("TAG", String.valueOf(minute));
-        Log.d("TAG", String.valueOf(second));
-
-
-        Log.d("TAG", hour + ":" + minute + ":" + second);
-        long time = hour * 60 * 60 + minute * 60 +
-                second;
-        return time * 1000;
-    }
-
     private void startSecondTimer() {
         timerTwo = new CountDownTimer(viewModel.timeTwoStart, 1000) {
 
 
             public void onTick(long millisUntilFinished) {
-                //two = millisUntilFinished;
                 viewModel.timeTwo = millisUntilFinished;
                 playerTwo.setText(getTextFromTime(viewModel.timeTwo));
-                //Log.d(TAG, "two is: " + (two / 1000));
             }
 
             public void onFinish() {
@@ -218,10 +149,7 @@ public class MainActivity extends AppCompatActivity {
         val %= 60 * 60;
         String min = String.valueOf(val / 60);
         String second = String.valueOf(val % 60);
-//        if(min.length()==1)
-//        {
-//            min="0"+min;
-//        }
+
         if (second.length() == 1) {
             second = "0" + second;
         }
@@ -233,29 +161,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    void startdelayTimer()
-    {
+    void startdelayTimer() {
         delayTimer = new CountDownTimer(viewModel.increment, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //two = millisUntilFinished;
-//                viewModel.timeTwo = millisUntilFinished;
-//                playerTwo.setText(getTextFromTime(viewModel.timeTwo));
-                //Log.d(TAG, "two is: " + (two / 1000));
+
             }
 
             public void onFinish() {
-//                playerTwo.setText("");
-//                playerTwo.setBackgroundResource(R.drawable.ic_flag);
-//                //finished = true;
-//                viewModel.finished = true;
-//                pause.setVisibility(View.INVISIBLE);
-                if(viewModel.oneisplaying)
-                {
+                if (viewModel.oneisplaying) {
                     startFirstTimer();
                     timerOne.start();
-                }else if(viewModel.twoisplaying)
-                {
+                } else if (viewModel.twoisplaying) {
                     startSecondTimer();
                     timerTwo.start();
                 }
@@ -280,10 +197,8 @@ public class MainActivity extends AppCompatActivity {
                 //twoisplaying = true;
                 viewModel.twoisplaying = true;
                 assert viewModel.mode != null;
-                if(viewModel.mode.equals("Delay"))
-                {
-                    if(delayTimer!=null)
-                    {
+                if (viewModel.mode.equals("Delay")) {
+                    if (delayTimer != null) {
                         delayTimer.cancel();
                     }
                 }
@@ -294,12 +209,10 @@ public class MainActivity extends AppCompatActivity {
 
                 assert viewModel.mode != null;
                 if (viewModel.mode.equals("Fischer")) {
-                    if(viewModel.firstmove)
-                    {
-                     viewModel.firstmove=false;
-                     viewModel.timeOneStart=viewModel.timeOne;
-                    }else
-                    {
+                    if (viewModel.firstmove) {
+                        viewModel.firstmove = false;
+                        viewModel.timeOneStart = viewModel.timeOne;
+                    } else {
                         viewModel.timeOneStart = viewModel.timeOne + viewModel.increment;
                     }
 
@@ -310,13 +223,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //timeTwo = two;
-                if(viewModel.mode.equals("Delay"))
-                {
+                if (viewModel.mode.equals("Delay")) {
                     startdelayTimer();
                     delayTimer.start();
-                    viewModel.timeOneStart=viewModel.timeOne;
-                }else
-                {
+                    viewModel.timeOneStart = viewModel.timeOne;
+                } else {
                     playerOne.setText(getTextFromTime(viewModel.timeOneStart));
                     startSecondTimer();
 
@@ -357,10 +268,8 @@ public class MainActivity extends AppCompatActivity {
             if (!viewModel.finished && (viewModel.twoisplaying || !viewModel.oneisplaying)) {
                 viewModel.twoisplaying = false;
                 viewModel.oneisplaying = true;
-                if(viewModel.mode.equals("Delay"))
-                {
-                    if(delayTimer!=null)
-                    {
+                if (viewModel.mode.equals("Delay")) {
+                    if (delayTimer != null) {
                         delayTimer.cancel();
                     }
                 }
@@ -371,12 +280,10 @@ public class MainActivity extends AppCompatActivity {
 
                 assert viewModel.mode != null;
                 if (viewModel.mode.equals("Fischer")) {
-                    if(viewModel.firstmove)
-                    {
-                        viewModel.firstmove=false;
-                        viewModel.timeTwoStart=viewModel.timeTwo;
-                    }else
-                    {
+                    if (viewModel.firstmove) {
+                        viewModel.firstmove = false;
+                        viewModel.timeTwoStart = viewModel.timeTwo;
+                    } else {
                         viewModel.timeTwoStart = viewModel.timeTwo + viewModel.increment;
                     }
 
@@ -386,12 +293,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //timeOne = one;
-                if(viewModel.mode.equals("Delay"))
-                {
+                if (viewModel.mode.equals("Delay")) {
                     startdelayTimer();
                     delayTimer.start();
-                    viewModel.timeTwoStart=viewModel.timeTwo;
-                }else{
+                    viewModel.timeTwoStart = viewModel.timeTwo;
+                } else {
                     playerTwo.setText(getTextFromTime(viewModel.timeTwoStart));
                     startFirstTimer();
                     timerOne.start();
@@ -429,24 +335,19 @@ public class MainActivity extends AppCompatActivity {
     //time reset to the starting value.
     public void refreshclicked(View view) {
         pauseclicked(pause);
-        viewModel.firstmove=true;
+        viewModel.firstmove = true;
 //        if (viewModel.firsttime) {
 //            viewModel.firsttime = false;
 //            onclickPositiveButton();
 //        } else {
-            new AlertDialog.Builder(view.getContext())
-                    .setTitle("Reset the clock?")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            onclickPositiveButton();
-                        }
-                    })
+        new AlertDialog.Builder(view.getContext())
+                .setTitle("Reset the clock?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> onclickPositiveButton())
 
-                    // A null listener allows the button to dismiss the dialog and take no further action.
-                    .setNegativeButton(android.R.string.no, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-     //   }
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+        //   }
 
     }
 
@@ -461,17 +362,13 @@ public class MainActivity extends AppCompatActivity {
         if (timerTwo != null) {
             timerTwo.cancel();
         }
-//                        one = 10000;
-//                        two = 10000;
-//                        timeOne = one;
-//                        timeTwo = two;
+
         initialize();
     }
 
     public void settingsclicked(View view) {
         pauseclicked(pause);
         Intent intent = new Intent(this, TimeListActivity.class);
-        startActivityForResult(intent,TIME_SELECT_REQUEST);
-        //startActivity(intent);
+        startActivityForResult(intent, TIME_SELECT_REQUEST);
     }
 }

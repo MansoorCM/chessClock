@@ -1,3 +1,5 @@
+/*this class can be used for passing an argument for the viewmodel(passing the time control) */
+
 //package com.example.chessclock;
 //
 //import android.app.Application;

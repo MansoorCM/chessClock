@@ -9,83 +9,59 @@
     <TextView
         android:id="@+id/playerOne"
         android:onClick="clickone"
-        android:layout_width="0dp"
-        android:fontFamily="@font/roboto"
-        android:layout_height="0dp"
-        android:background="@color/colorgrey"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_margin="@dimen/smallmargin"
-        android:textSize="42sp"
         app:autoSizeTextType="uniform"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/pause"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/timeTextView" />
 
 
     <ImageView
         android:id="@+id/settings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
         android:layout_marginEnd="55dp"
         android:contentDescription="@string/settings_button"
-        android:padding="@dimen/margin"
         android:onClick="settingsclicked"
         app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toStartOf="@+id/pause"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerOne"
         app:srcCompat="@drawable/ic_action_settings"
-        />
+        style="@style/imageViewStyle" />
 
     <ImageView
         android:id="@+id/pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
         android:layout_marginEnd="55dp"
         android:contentDescription="@string/pause_button"
-        android:padding="@dimen/margin"
         android:visibility="invisible"
         android:onClick="pauseclicked"
         app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toStartOf="@+id/refresh"
         app:layout_constraintStart_toEndOf="@id/settings"
         app:layout_constraintTop_toBottomOf="@id/playerOne"
-        app:srcCompat="@drawable/ic_action_pause" />
+        app:srcCompat="@drawable/ic_action_pause"
+        style="@style/imageViewStyle" />
 
     <ImageView
         android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin"
         android:contentDescription="@string/refresh_button"
-        android:padding="@dimen/margin"
         android:onClick="refreshclicked"
         app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/pause"
         app:layout_constraintTop_toBottomOf="@id/playerOne"
-        app:srcCompat="@drawable/ic_action_refresh" />
+        app:srcCompat="@drawable/ic_action_refresh"
+        style="@style/imageViewStyle" />
 
 
     <TextView
         android:id="@+id/playerTwo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/roboto"
         android:onClick="clickTwo"
-        android:background="@color/colorgrey"
-        android:gravity="center_horizontal|center_vertical"
-        android:layout_margin="@dimen/smallmargin"
-        android:textSize="42sp"
-        android:textStyle="bold"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pause" />
+        app:layout_constraintTop_toBottomOf="@id/pause"
+        style="@style/timeTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
