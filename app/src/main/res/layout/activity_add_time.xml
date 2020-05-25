@@ -12,6 +12,7 @@
         android:inputType="text"
         android:hint="@string/add_name"
         android:textSize="24sp"
+        android:fontFamily="@font/roboto"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         style="@style/add_time" />
@@ -20,6 +21,7 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:text="@string/time"
+        android:fontFamily="@font/roboto"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/editTextName"
@@ -29,6 +31,7 @@
         android:id="@+id/tv_entertime"
         android:layout_width="match_parent"
         android:hint="@string/click_to_enter_time"
+        android:fontFamily="@font/roboto"
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/tv_time"
         style="@style/add_time" />
@@ -38,6 +41,7 @@
         android:layout_width="match_parent"
         android:text="@string/increment"
         android:textSize="24sp"
+        android:fontFamily="@font/roboto"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/tv_entertime"
         style="@style/add_time" />
@@ -47,6 +51,7 @@
         android:layout_width="match_parent"
         android:textSize="20sp"
         android:hint="@string/click_to_enter_increment"
+        android:fontFamily="@font/roboto"
         app:layout_constraintTop_toBottomOf="@id/tv_increment"
         style="@style/add_time" />
     <TextView
@@ -54,6 +59,7 @@
         android:layout_width="match_parent"
         android:textSize="20sp"
         android:text="@string/select_mode"
+        android:fontFamily="@font/roboto"
         app:layout_constraintTop_toBottomOf="@id/tv_enter_increment"
         style="@style/add_time" />
 
@@ -62,7 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:fontFamily="@font/roboto"
         android:orientation="vertical"
+        android:checkedButton="@id/fischer"
         style="@style/add_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,6 +80,7 @@
             android:id="@+id/bronstein"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:onClick="onRadioButtonClicked"
             android:text="@string/bronstein"
             android:layout_marginBottom="8dp"/>
@@ -80,6 +89,7 @@
             android:id="@+id/delay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:onClick="onRadioButtonClicked"
             android:text="@string/delay"
             android:layout_marginBottom="8dp"/>
@@ -88,6 +98,7 @@
             android:id="@+id/fischer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
             android:onClick="onRadioButtonClicked"
             android:text="@string/fischer"
             android:layout_marginBottom="8dp"/>

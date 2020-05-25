@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddTimeActivity"
-            android:parentActivityName=".TimeListActivity"
+        <activity android:name="com.example.chessclock.AddTimeActivity"
+            android:parentActivityName="com.example.chessclock.TimeListActivity"
             android:theme="@style/activity_theme"></activity>
         <activity
-            android:name=".TimeListActivity"
-            android:parentActivityName=".MainActivity"
+            android:name="com.example.chessclock.TimeListActivity"
+            android:parentActivityName="com.example.chessclock.MainActivity"
             android:theme="@style/activity_theme" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.chessclock.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

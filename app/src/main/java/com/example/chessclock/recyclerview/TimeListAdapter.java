@@ -1,6 +1,5 @@
 package com.example.chessclock.recyclerview;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;

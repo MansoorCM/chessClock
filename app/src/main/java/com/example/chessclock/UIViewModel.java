@@ -5,9 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 
 import com.example.chessclock.data.TimeControl;
@@ -15,11 +12,16 @@ import com.example.chessclock.data.TimeControl;
 import java.util.Objects;
 
 public class UIViewModel extends AndroidViewModel {
-    boolean firsttime=true;
+    boolean firsttime=false;
     boolean firstmove=true;
-    MutableLiveData<TimeControl> timeControl=new MutableLiveData<TimeControl>();
-    //MutableLiveData<TimeControl> sample=new MutableLiveData<TimeControl>();
-    //TimeControl control=new TimeControl("bullet_sample","00:01:00",, "00:00:01");
+    TimeControl timeControl=new TimeControl("bullet_sample","00:01:00",
+                                                   "Fischer", "00:00:01");;
+
+
+//        setValue(new TimeControl("bullet_sample","00:01:00",
+//            "Fischer", "00:00:01"));
+
+
     boolean oneisplaying;
     boolean twoisplaying;
     boolean finished;
@@ -32,51 +34,38 @@ public class UIViewModel extends AndroidViewModel {
     long increment;
 
     String mode;
-
-
-
-//    UIViewModel()
-//    {
-//        if(timeControl.getValue()==null)
-//        {
-//            timeControl.setValue(new TimeControl("bullet_sample","00:01:00",
-//                    "Fischer", "00:00:01"));
-//        }
-//        initialize();
-//    }
+    int notNull;
 
     public UIViewModel(@NonNull Application application) {
         super(application);
-        if(timeControl.getValue()==null)
-        {
-            timeControl.setValue(new TimeControl("bullet_sample","00:01:00",
-                    "Fischer", "00:00:01"));
-        }
-        initialize();
+
     }
 
 
     void initialize()
     {
+
+        notNull=1;
+        Log.d("TAG", "init viewmodel");
+//        if(mSavedState.contains("timecontrol"))
+//        {
+//            timeControl=mSavedState.get("timecontrol");
+//        }else
+//        {
+//            timeControl=new TimeControl("bullet_sample","00:01:00",
+//                    "Fischer", "00:00:01");
+//        }
         oneisplaying=false;
         twoisplaying=false;
         finished=false;
         paused=false;
         firstmove=true;
-        firsttime=true;
-//        if(timeControl==null)
-//        {
-//            timeOne=(long) 60000;
-//            timeTwo=(long) 60000;
-//            increment=(long) 1000;
-//            mode="Fischer";
-//        }else
-//        {
-            timeOne=getTimeFromText(Objects.requireNonNull(timeControl.getValue()).getTime());
-            timeTwo=getTimeFromText(timeControl.getValue().getTime());
-            increment=getTimeFromText(timeControl.getValue().getIncrement());
-            mode=timeControl.getValue().getMode();
-       // }
+
+            timeOne=getTimeFromText(Objects.requireNonNull(timeControl).getTime());
+            timeTwo=getTimeFromText(timeControl.getTime());
+            increment=getTimeFromText(timeControl.getIncrement());
+            mode=timeControl.getMode();
+
         timeOneStart=timeOne;
         timeTwoStart=timeTwo;
 
@@ -87,12 +76,6 @@ public class UIViewModel extends AndroidViewModel {
         int minute = (text.charAt(3) - '0') * 10 + (text.charAt(4) - '0');
         int second = (text.charAt(6) - '0') * 10 + (text.charAt(7) - '0');
 
-      /*  Log.d("TAG", String.valueOf(hour));
-        Log.d("TAG", String.valueOf(minute));
-        Log.d("TAG", String.valueOf(second));
-
-
-        Log.d("TAG", hour + ":" + minute + ":" + second);*/
         long time = hour * 60 * 60 + minute * 60 +
                 second;
         return time * 1000;
@@ -172,11 +155,14 @@ public class UIViewModel extends AndroidViewModel {
         this.timeTwoStart= timeTwo;
     }
     public void setTimeControl(TimeControl timeControl) {
-        this.timeControl.setValue(timeControl);
+        Log.i("init viewmodel","settimecontrol");
+        this.timeControl=timeControl;
+        //mSavedState.set("timecontrol",timeControl);
         initialize();
     }
 
-    public LiveData<TimeControl> getTimeControl() {
+    public TimeControl getTimeControl() {
+
 
             return timeControl;
 

@@ -110,6 +110,7 @@ public class TimeListActivity extends AppCompatActivity implements TimeListAdapt
                         selectedTimeControl.getIncrement(),selectedTimeControl.getMode()});
                 editId=selectedTimeControl.getId();
                 Log.d("TAG","from edit to addActivity");
+                selectedTimeControl=null;
                 startActivityForResult(intent, EDIT_TIME_CONTROL_REQUEST_CODE);
             }else
             {
@@ -122,6 +123,7 @@ public class TimeListActivity extends AppCompatActivity implements TimeListAdapt
             if(selectedTimeControl!=null)
             {
                 viewModel.delete(selectedTimeControl);
+                selectedTimeControl=null;
             }
 
         }
@@ -145,6 +147,7 @@ public class TimeListActivity extends AppCompatActivity implements TimeListAdapt
                     selectedTimeControl.getIncrement()});
             setResult(RESULT_OK,replyIntent);
             //uiViewModel.setTimeControl(selectedTimeControl);
+            selectedTimeControl=null;
             finish();
         }else
         {

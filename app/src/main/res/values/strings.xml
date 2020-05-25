@@ -17,4 +17,5 @@
     <string name="delay">Delay</string>
     <string name="fischer">Fischer</string>
     <string name="select">SELECT</string>
+    <string name="update">update</string>
 </resources>

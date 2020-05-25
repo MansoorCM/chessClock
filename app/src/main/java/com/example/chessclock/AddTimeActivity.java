@@ -31,6 +31,7 @@ public class AddTimeActivity extends AppCompatActivity {
     int incMin=0;
     int incSec=10;
     RadioGroup radioGroup;
+    boolean editMode=false;
 
 
     @Override
@@ -50,10 +51,12 @@ public class AddTimeActivity extends AppCompatActivity {
             assert arrayExtra != null;
             id= Integer.parseInt(arrayExtra[0]);
             enterName.setText(arrayExtra[1]);
+            addTime.setText(arrayExtra[2]);
             int[] time=getTimeFromText(arrayExtra[2]);
             timeHour=time[0];
             timeMin=time[1];
             timeSec=time[2];
+            addIncrement.setText(arrayExtra[3]);
             int[] inctime=getTimeFromText(arrayExtra[3]);
             incHour=inctime[0];
             incMin=inctime[1];
@@ -67,14 +70,19 @@ public class AddTimeActivity extends AppCompatActivity {
             if (mode.equals(getString(R.string.bronstein)))
             {
                 radioGroup.check(R.id.bronstein);
-            }else if (mode.equals(getString(R.string.bronstein)))
+            }else if (mode.equals(getString(R.string.delay)))
             {
                 radioGroup.check(R.id.delay);
-            }else if (mode.equals(getString(R.string.bronstein)))
+            }else if (mode.equals(getString(R.string.fischer)))
             {
                 radioGroup.check(R.id.fischer);
             }
+            editMode=true;
+        }else
+        {
+            editMode=false;
         }
+
 
         addTime.setOnClickListener(view -> {
             MyTimePickerDialog mTimePicker = new MyTimePickerDialog(AddTimeActivity.this,
@@ -102,6 +110,13 @@ public class AddTimeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.newitem,menu);
+        if(editMode)
+        {
+            menu.findItem(R.id.action_save).setTitle(R.string.update);
+        }else
+        {
+            menu.findItem(R.id.action_save).setTitle(R.string.save);
+        }
         return true;
     }
 
@@ -116,7 +131,7 @@ public class AddTimeActivity extends AppCompatActivity {
                         , Toast.LENGTH_SHORT).show();
             }else if (mode==null)
             {
-                Toast.makeText(this, "Select an increment mode"
+                Toast.makeText(this, "Select the game mode"
                         , Toast.LENGTH_SHORT).show();
             }else
             {
@@ -126,7 +141,7 @@ public class AddTimeActivity extends AppCompatActivity {
                             , Toast.LENGTH_SHORT).show();
                 }else if(addIncrement.getText().toString().isEmpty())
                 {
-                    Toast.makeText(this, "Set the increment"
+                    Toast.makeText(this, "Set the increment time"
                             , Toast.LENGTH_SHORT).show();
                 }else
                 {

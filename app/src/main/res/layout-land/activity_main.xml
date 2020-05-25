@@ -14,14 +14,14 @@
         android:background="@color/colorgrey"
         android:gravity="center_horizontal|center_vertical"
         android:layout_margin="@dimen/smallmargin"
+        android:fontFamily="@font/roboto"
         android:textSize="42sp"
         app:autoSizeTextType="uniform"
-        android:fontFamily="@font/roboto"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/pause"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/playerTwo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/pause" />
 
 
     <ImageView
@@ -33,10 +33,9 @@
         android:contentDescription="@string/settings_button"
         android:padding="@dimen/margin"
         android:onClick="settingsclicked"
-        app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toStartOf="@+id/pause"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playerOne"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_settings"
         />
 
@@ -50,10 +49,9 @@
         android:padding="@dimen/margin"
         android:visibility="invisible"
         android:onClick="pauseclicked"
-        app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toStartOf="@+id/refresh"
         app:layout_constraintStart_toEndOf="@id/settings"
-        app:layout_constraintTop_toBottomOf="@id/playerOne"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_pause" />
 
     <ImageView
@@ -64,10 +62,9 @@
         android:contentDescription="@string/refresh_button"
         android:padding="@dimen/margin"
         android:onClick="refreshclicked"
-        app:layout_constraintBottom_toTopOf="@id/playerTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/pause"
-        app:layout_constraintTop_toBottomOf="@id/playerOne"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_refresh" />
 
 
@@ -77,15 +74,15 @@
         android:layout_height="0dp"
         android:onClick="clickTwo"
         android:background="@color/colorgrey"
+        android:fontFamily="@font/roboto"
         android:gravity="center_horizontal|center_vertical"
         android:layout_margin="@dimen/smallmargin"
         android:textSize="42sp"
         android:textStyle="bold"
         app:autoSizeTextType="uniform"
-        android:fontFamily="@font/roboto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playerOne"
         app:layout_constraintTop_toBottomOf="@id/pause" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
