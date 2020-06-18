@@ -1,5 +1,5 @@
 # chessClock
-A chess clock app.
+A chess clock app. [click here](https://github.com/MansoorCM/chessClock/blob/master/chessClock.apk) to download the apk file.
 
 ## Before the game
 <img src="main.jpg" width=150>
