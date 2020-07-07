@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 
 import com.example.chessclock.data.TimeControl;
@@ -20,7 +21,7 @@ public class UIViewModel extends AndroidViewModel {
     boolean oneisplaying;
     boolean twoisplaying;
     boolean finished;
-    boolean paused;
+    MutableLiveData<Boolean> paused=new MutableLiveData<>();
 
     long timeOne;
     long timeTwo;
@@ -40,12 +41,11 @@ public class UIViewModel extends AndroidViewModel {
     void initialize() {
 
         notNull = 1;
-//        Log.d("TAG", "init viewmodel");
 
         oneisplaying = false;
         twoisplaying = false;
         finished = false;
-        paused = false;
+        paused.setValue(false);
         firstmove = true;
 
         timeOne = getTimeFromText(Objects.requireNonNull(timeControl).getTime());
@@ -71,7 +71,7 @@ public class UIViewModel extends AndroidViewModel {
     public void setTimeControl(TimeControl timeControl) {
         Log.i("init viewmodel", "settimecontrol");
         this.timeControl = timeControl;
-        //mSavedState.set("timecontrol",timeControl);
+
         initialize();
     }
 

@@ -45,8 +45,8 @@ public class AddTimeActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radiogroup);
 
         Intent intent = getIntent();
-        if (intent.hasExtra(TimeListActivity.EDIT_KEY)) {
-            String[] arrayExtra = intent.getStringArrayExtra(TimeListActivity.EDIT_KEY);
+        if (intent.hasExtra(SettingsActivity.EDIT_KEY)) {
+            String[] arrayExtra = intent.getStringArrayExtra(SettingsActivity.EDIT_KEY);
             assert arrayExtra != null;
             id = Integer.parseInt(arrayExtra[0]);
             enterName.setText(arrayExtra[1]);

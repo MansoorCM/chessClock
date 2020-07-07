@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.example.chessclock.AddTimeActivity"
-            android:parentActivityName="com.example.chessclock.TimeListActivity"
+            android:parentActivityName="com.example.chessclock.SettingsActivity"
             android:theme="@style/activity_theme"></activity>
         <activity
-            android:name="com.example.chessclock.TimeListActivity"
+            android:name="com.example.chessclock.SettingsActivity"
             android:parentActivityName="com.example.chessclock.MainActivity"
             android:theme="@style/activity_theme" />
         <activity

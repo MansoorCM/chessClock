@@ -3,7 +3,6 @@ package com.example.chessclock;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +19,10 @@ import com.example.chessclock.data.TimeControl;
 import com.example.chessclock.data.TimeViewModel;
 import com.example.chessclock.recyclerview.TimeListAdapter;
 
-import java.util.List;
-
 /*shows the list of time controls stored in the database in a recylerview and allows the
 user to select a time control to use in the clock(MainActivity) or add a new timecontrol
 by navigating to the AddTimeActivity class*/
-public class TimeListActivity extends AppCompatActivity implements TimeListAdapter.onClickItemListener {
+public class SettingsActivity extends AppCompatActivity implements TimeListAdapter.onClickItemListener {
 
     private static final int NEW_TIME_CONTROL_REQUEST_CODE = 1;
     public static final String EDIT_KEY = "edit_item";
@@ -46,7 +43,7 @@ public class TimeListActivity extends AppCompatActivity implements TimeListAdapt
         uiViewModel = new ViewModelProvider(this).get(UIViewModel.class);
 
         recyclerView = findViewById(R.id.recyclerview);
-        adapter = new TimeListAdapter(TimeListActivity.this);
+        adapter = new TimeListAdapter(SettingsActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 

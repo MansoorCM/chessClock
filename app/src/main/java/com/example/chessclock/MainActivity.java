@@ -3,15 +3,15 @@ package com.example.chessclock;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,11 +23,7 @@ public class MainActivity extends AppCompatActivity {
     TextView playerOne;
     TextView playerTwo;
     ImageView settings, pause, refresh;
-    //private SharedPreferences mSharedPreferences;
-    private static final String NAMEKEY = "nameKey";
-    private static final String TIMEKEY = "timekey";
-    private static final String INCKEY = "incKey";
-    private static final String MODEKEY = "modeKey";
+
     TimeControl storedtimeControl;
     public static CountDownTimer timerOne, timerTwo, delayTimer;
     UIViewModel viewModel;
@@ -43,14 +39,10 @@ public class MainActivity extends AppCompatActivity {
         pause = findViewById(R.id.pause);
         refresh = findViewById(R.id.refresh);
 
-//        timeControl=new TimeControl(mSharedPreferences.getString(NAMEKEY,"bullet_sample"),
-//                mSharedPreferences.getString(TIMEKEY,"00:01:00"),
-//                mSharedPreferences.getString(MODEKEY,"Fischer"),
-//                mSharedPreferences.getString(INCKEY,"00:00:01"));
         viewModel = new ViewModelProvider(this).get(UIViewModel.class);
         if (viewModel.notNull != 1) {
             Log.i("init", "reached viewmodel first time");
-            //viewModel.timeControl=timeControl;
+
             if (storedtimeControl != null) {
                 viewModel.timeControl = storedtimeControl;
             }
@@ -58,18 +50,24 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("init", "reached viewmodel already exists");
         }
+
+        viewModel.paused.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean ispaused) {
+                if (!ispaused) {
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                } else {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                }
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         pauseclicked(pause);
-//        SharedPreferences.Editor editor=mSharedPreferences.edit();
-//        editor.putString(NAMEKEY,viewModel.timeControl.getName());
-//        editor.putString(TIMEKEY,viewModel.timeControl.getTime());
-//        editor.putString(MODEKEY,viewModel.timeControl.getMode());
-//        editor.putString(INCKEY,viewModel.timeControl.getIncrement());
-//        editor.apply();
+
     }
 
     @Override
@@ -99,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
     void initialize() {
         viewModel.initialize();
-//        Log.d("TAG init", String.valueOf(viewModel.oneisplaying));
-//        Log.d("TAG init", String.valueOf(viewModel.twoisplaying));
+
+        //set the initial time for both players
         playerOne.setText(getTextFromTime(viewModel.timeOneStart));
         playerTwo.setText(getTextFromTime(viewModel.timeTwoStart));
     }
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 playerOne.setText("");
                 playerOne.setBackgroundResource(R.drawable.ic_flag);
-                //finished = true;
+
                 viewModel.finished = true;
                 pause.setVisibility(View.INVISIBLE);
             }
@@ -143,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    //getting the text of the time inorder to display in the textview
     private static String getTextFromTime(long time) {
         int val = (int) (time / 1000);
         String hour = String.valueOf(val / (60 * 60));
@@ -182,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     //player one clicked his clock.this function stops his clock and starts his opponents clock.
     public void clickone(View view) {
-        if (viewModel.paused) {
+        if (viewModel.paused.getValue()) {
             startGameFromPauseState();
         } else {
             if (viewModel.mode != null) {
@@ -192,9 +191,9 @@ public class MainActivity extends AppCompatActivity {
                 pause.setVisibility(View.VISIBLE);
             }
             if (!viewModel.finished && (viewModel.oneisplaying || !viewModel.twoisplaying)) {
-                //oneisplaying = false;
+
                 viewModel.oneisplaying = false;
-                //twoisplaying = true;
+
                 viewModel.twoisplaying = true;
                 assert viewModel.mode != null;
                 if (viewModel.mode.equals("Delay")) {
@@ -242,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void startGameFromPauseState() {
-        viewModel.paused = false;
+        viewModel.paused.setValue(false);
         pause.setVisibility(View.VISIBLE);
         playerOne.setText(getTextFromTime(viewModel.timeOneStart));
         playerTwo.setText(getTextFromTime(viewModel.timeTwoStart));
@@ -259,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
     //player two clicked his clock.this function stops his clock and starts his opponents clock.
     public void clickTwo(View view) {
-        if (viewModel.paused) {
+        if (viewModel.paused.getValue()) {
             startGameFromPauseState();
         } else {
             if (!viewModel.oneisplaying && !viewModel.twoisplaying) {
@@ -292,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
                             viewModel.timeTwoStart);
                 }
 
-                //timeOne = one;
                 if (viewModel.mode.equals("Delay")) {
                     startdelayTimer();
                     delayTimer.start();
@@ -312,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pauseclicked(View view) {
-        viewModel.paused = true;
+        viewModel.paused.setValue(true);
         viewModel.timeOneStart = viewModel.timeOne;
         viewModel.timeTwoStart = viewModel.timeTwo;
         if (timerOne != null) {
@@ -321,14 +319,8 @@ public class MainActivity extends AppCompatActivity {
         if (timerTwo != null) {
             timerTwo.cancel();
         }
-//        viewModel.oneisplaying = false;
-//        viewModel.twoisplaying = false;
+
         pause.setVisibility(View.INVISIBLE);
-//        if(!viewModel.finished)
-//        {
-//            playerOne.setBackgroundColor(getResources().getColor(R.color.colorgrey));
-//            playerTwo.setBackgroundColor(getResources().getColor(R.color.colorgrey));
-//        }
 
     }
 
@@ -336,10 +328,7 @@ public class MainActivity extends AppCompatActivity {
     public void refreshclicked(View view) {
         pauseclicked(pause);
         viewModel.firstmove = true;
-//        if (viewModel.firsttime) {
-//            viewModel.firsttime = false;
-//            onclickPositiveButton();
-//        } else {
+
         new AlertDialog.Builder(view.getContext())
                 .setTitle("Reset the clock?")
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> onclickPositiveButton())
@@ -347,7 +336,6 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-        //   }
 
     }
 
@@ -368,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void settingsclicked(View view) {
         pauseclicked(pause);
-        Intent intent = new Intent(this, TimeListActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivityForResult(intent, TIME_SELECT_REQUEST);
     }
 }
