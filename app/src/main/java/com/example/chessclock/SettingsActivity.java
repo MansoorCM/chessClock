@@ -104,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity implements TimeListAdapt
             }
 
         } else if (item.getItemId() == R.id.action_delete) {
-            //deletes a time control fron the database
+            //deletes a time control from the database
             if (selectedTimeControl != null) {
                 viewModel.delete(selectedTimeControl);
                 selectedTimeControl = null;
